@@ -1,0 +1,12 @@
+{
+  "DataBase": {
+    "host": "127.0.0.1",
+    "dbname": "portal",
+    "login": "root",
+    "password": ""
+  },
+  "Site": {
+    "url": "https://portal.hiik.ru",
+    "name": "Студенческий портал"
+  }
+}
