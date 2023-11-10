@@ -1,12 +1,12 @@
 {
   "DataBase": {
     "host": "127.0.0.1",
-    "dbname": "portal",
+    "dbname": "RKOT",
     "login": "root",
     "password": ""
   },
   "Site": {
-    "url": "https://portal.hiik.ru",
-    "name": "Студенческий портал"
+    "url": "https://sibhack-4.ru",
+    "name": "СПО РКОТ"
   }
 }

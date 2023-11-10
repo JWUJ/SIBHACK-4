@@ -23,7 +23,7 @@ $local['session'] = Session::getInstance();
 <div class="flex flex-wrap bg-gray-100 w-full h-screen">
     <div class="w-3/12 bg-base-200 rounded p-3">
         <div class="flex items-center space-x-4 p-2 mb-5">
-            <a class="btn btn-ghost normal-case text-xl" href="/">ХИИК</a>
+            <a class="btn btn-ghost normal-case text-xl" href="/">СПО РКОТ</a>
             <div>
                 <h4 class="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide"><?php echo($local['users']->user($local['session']->get('user_id'))['name']);?></h4>
             </div>
@@ -31,7 +31,7 @@ $local['session'] = Session::getInstance();
         <ul class="menu rounded-box">
     <?php 
 
-					$items = json_decode($local['menu']->getMenuById(3)['items'], true);
+					$items = json_decode($local['menu']->getMenuById(1)['items'], true);
 					foreach (array_keys($items) as $item){
 						if (!is_array($items[$item])){
 							echo ('<li><a href="' . $items[$item] . '">' . $item . '</a></li>');

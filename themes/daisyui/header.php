@@ -27,7 +27,7 @@ $local['session'] = Session::getInstance();
 				<ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
 				<?php 
 
-					$items = json_decode($local['menu']->getMenuById(1)['items'], true);
+					$items = json_decode($local['menu']->getMenuById(2)['items'], true);
 					foreach (array_keys($items) as $item){
 						if (!is_array($items[$item])){
 							echo ('<li><a href="' . $items[$item] . '">' . $item . '</a></li>');
@@ -44,13 +44,13 @@ $local['session'] = Session::getInstance();
 				?>
 				</ul>
 			</div>
-			<a class="btn btn-ghost normal-case text-xl" href="/">ХИИК</a>
+			<a class="btn btn-ghost normal-case text-xl" href="/">СПО РКОТ</a>
 		</div>
 		<div class="navbar-center hidden lg:flex">
 			<ul class="menu menu-horizontal px-1">
 				<?php 
 
-					$items = json_decode($local['menu']->getMenuById(1)['items'], true);
+					$items = json_decode($local['menu']->getMenuById(2)['items'], true);
 					foreach (array_keys($items) as $item){
 						if (!is_array($items[$item])){
 							echo ('<li><a href="' . $items[$item] . '">' . $item . '</a></li>');
@@ -80,18 +80,8 @@ $local['session'] = Session::getInstance();
 				<ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
 				');
 				if ($local['session']->get('role') == 1) {
-					echo ('<li><a href="/admin">Панель администратора</a></li>');
+					echo ('<li><a href="/admin">Панель управления</a></li>');
 				}
-				$items = json_decode($local['menu']->getMenuById(2)['items'], true);
-				foreach (array_keys($items) as $item){
-					if (!is_array($items[$item])){
-						echo ('<li><a href="' . $items[$item] . '">' . $item . '</a></li>');
-					}else{
-						foreach (array_keys($items[$item]) as $subitem){
-							echo ('<li><a href="' . $items[$item][$subitem] . '">' . $subitem . '</a></li>');
-						}
-					}
-				} 
 			echo('
 				</ul>
 			</div>
