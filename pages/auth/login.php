@@ -20,10 +20,14 @@ if(isset($_GET['login']) and isset($_GET['password'])){
         echo('
         <div class="alert alert-success">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span>Вы успешно вошли!</span>
-            <a class="btn" href="/">На главную</a>
+            <span>Вы успешно вошли! Автоматический переход через 7 секунд</span>
+            <a class="btn" href="/admin">Перейти в управление</a>
         </div>
         ');
+        echo("<script type='text/javascript'>
+                setTimeout(`window.location='/admin'`,7000);
+              </script>
+            ");
     }
 }
 ?>
@@ -47,7 +51,7 @@ if(isset($_GET['login']) and isset($_GET['password'])){
           </label>
           <input name="password" type="password" placeholder="Пароль" class="input input-bordered" required />
           <label class="label">
-            <a href="#" class="label-text-alt link link-hover">Забыли пароль?</a>
+            <a class="label-text-alt link link-hover">Забыли пароль? Обратитесь к администратору</a>
           </label>
         </div>
         <div class="form-control mt-6">

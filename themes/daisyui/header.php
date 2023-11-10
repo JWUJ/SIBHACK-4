@@ -71,20 +71,7 @@ $local['session'] = Session::getInstance();
 			echo('
 			
 		<div class="navbar-end">
-			<div class="dropdown dropdown-end">
-				<label tabindex="0" class="btn btn-ghost btn-circle avatar">
-					<div class="w-10 rounded-full">
-						<img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-					</div>
-				</label>
-				<ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-				');
-				if ($local['session']->get('role') == 1) {
-					echo ('<li><a href="/admin">Панель управления</a></li>');
-				}
-			echo('
-				</ul>
-			</div>
+			<a href="/admin" class="btn">Панель управления</a>
 		</div>
 			
 			');
