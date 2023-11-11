@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
 
 -- Дамп данных таблицы RKOT.menus: ~2 rows (приблизительно)
 INSERT INTO `menus` (`id`, `name`, `items`) VALUES
-	(1, 'Admin', '{\r\n  "Пользователи": "/admin/users",\r\n  "Страницы": "/admin/pages",\r\n  "РКОТ": {\r\n    "Отчёты": "/admin/rkot/table",\r\n    "Города": "/admin/pages/rkot/cities",\r\n    "Операторы связи": "/admin/pages/rkot/mobile_operators"\r\n  }\r\n}'),
+	(1, 'Admin', '{\r\n  "Пользователи": "/admin/users",\r\n  "Страницы": "/admin/pages",\r\n  "РКОТ": {\r\n    "Отчёты": "/admin/rkot/table",\r\n    "Города": "/admin/pages/rkot/cities",\r\n    "Операторы связи": "/admin/pages/rkot/mobile_operators"\r\n  },\r\n  "Выйти с аккаунта": "/logout"\r\n}'),
 	(2, 'Main', '{\r\n "Об проекте": "/info"\r\n}');
 
 -- Дамп структуры для таблица RKOT.pages
@@ -54,9 +54,9 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `roles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы RKOT.pages: ~16 rows (приблизительно)
+-- Дамп данных таблицы RKOT.pages: ~17 rows (приблизительно)
 INSERT INTO `pages` (`id`, `page`, `url`, `location`, `roles`, `type`) VALUES
 	(1, 'Администратор: Главная', '/admin', '/pages/admin/main.php', '[1,2]', 'admin'),
 	(2, 'Администратор: Управление пользователями', '/admin/users', '/pages/admin/users.php', '[1]', 'admin'),
@@ -73,7 +73,8 @@ INSERT INTO `pages` (`id`, `page`, `url`, `location`, `roles`, `type`) VALUES
 	(16, 'Api:Modules:RKOT:Mobile_Operators', '/api/rkot/mobile_operators', '/api/modules/rkot/mobile_operators.php', '[1,2]', 'api:rkot'),
 	(18, 'Api:Modules:Main:Users', '/api/users', '/api/main/users.php', '', 'api'),
 	(24, 'Api:Modules:Main:Pages', '/api/pages', '/api/main/pages.php', '', 'api'),
-	(25, 'Главная', '/', '/pages/main.php', NULL, 'main');
+	(25, 'Главная', '/', '/pages/main.php', NULL, 'main'),
+	(26, 'test', '/test', '/pages/test.php', NULL, NULL);
 
 -- Дамп структуры для таблица RKOT.rkot_cities
 CREATE TABLE IF NOT EXISTS `rkot_cities` (
