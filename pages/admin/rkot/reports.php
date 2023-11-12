@@ -23,6 +23,31 @@ require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
   </div>
 </dialog>
 
+<div class="relative h-16" style="width:100%">
+
+<button class="btn btn-square absolute top-0 right-0 hover:bg-green-200 active:bg-green-500" onclick="my_modal_3.showModal()"><span style="font-size:25px; margin-bottom:7%">+</span></button>
+
+<dialog id="my_modal_3" class="modal">
+  <div class="modal-box">
+
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+
+    <h3 class="font-bold text-lg">Hello!</h3>
+
+    <form>
+      <input id="file" type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs mt-5" /> <br>
+      <a class="btn mt-5" onclick="uploadFile()">Отправить</a> 
+    </form>
+    
+  </div>
+
+</dialog>
+
+</div>
+
+
 <table id="reports" class="table" style="width:100%">
     <thead>
         <tr>
@@ -86,21 +111,32 @@ function deleteEntry(id) {
         });
 }
 
-function printExternal(url) {
-    var printWindow = window.open( url, 'Print', 'left=200, top=200, width=1500, height=1000, toolbar=0, resizable=0');
+ function uploadFile() {
+            var fileInput = document.getElementById("file");
 
-    printWindow.addEventListener('load', function() {
-        if (Boolean(printWindow.chrome)) {
-            printWindow.print();
-            setTimeout(function(){
-                printWindow.close();
-            }, 500);
-        } else {
-            printWindow.print();
-            printWindow.close();
+            // Проверка наличия выбранного файла
+            if (fileInput.files.length > 0) {
+                var formData = new FormData();
+                formData.append("file", fileInput.files[0]);
+
+                $.ajax({
+                    type: "POST",
+                    url: "upload.php", // Замените на путь к вашему обработчику на сервере
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        alert("File uploaded successfully!");
+                    },
+                    error: function(error) {
+                        alert("Error uploading file: " + error.statusText);
+                    }
+                });
+            } else {
+                alert("Выберите файл для загрузки.");
+            }
         }
-    }, true);
-}
+
 </script>
 
 <?php
