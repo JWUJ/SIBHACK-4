@@ -5,11 +5,6 @@ use portal\modules\Themes;
 
 $local['db'] = DataBase::getInstance();
 
-if (!isset($_GET))
-{
-    exit('{"error": "ERROR: Function not passed"}');
-}
-
 require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
 ?>
 
@@ -17,8 +12,20 @@ require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.tailwindcss.min.js"></script>
+<style>
+table /* give class of table*/
+{
+table-layout: fixed;
+}
 
-<div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+table td
+{
+word-wrap:break-word;
+overflow: hidden;
+overflow-wrap: break-word;
+}
+</style>
+
 <?
 
                         $sql = "SELECT data FROM rkot_reports_data WHERE id_report = '" . $_GET['id'] . "'";
@@ -27,24 +34,28 @@ require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
 
                         $data = json_decode($query[0]['data'], true);
 
+                        $header = $data[0][0];
+
                     foreach ($data as $id => $table) {
 
                         $title = $table[0][0];
 
                         echo('<a class="my-8 text-xl font-medium leading-tight">' . $title . '</a>');
                         echo('
-<table id="' . $id . '" class="table" style="width:100%">
+<div class="overflow-x-auto">
+<table id="' . $id . '" class="table table-fixed" >
     <thead>
         <tr>
             <th>Параметры качества</th>
             <th></th>
-            <th>Beeline</th>
-            <th>MegaFon RUS</th>
-            <th>MTS-RUS</th>
-            <th>TELE2</th>
+            <th>"' . $header[2] . '"</th>
+            <th>"' . $header[3] . '"</th>
+            <th>"' . $header[4] . '"</th>
+            <th>"' . $header[5] . '"</th>
         </tr>
     </thead>
 </table>
+</div>
 
 
 <script>	
@@ -56,13 +67,21 @@ $("#' . $id . '").DataTable( {
     language: {
         url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/ru.json",
     },
-    ajax: "/api/rkot/reports/data?function=get&count=table&id=1&table_id=' . $id . '"
+    ajax: "/api/rkot/reports/data?function=get&count=table&id=1&table_id=' . $id . '",
+    "autoWidth": false,
+    columns : [
+        { width : "500px" },
+        { width : "100px" },
+        { width : "100px" },
+        { width : "100px" },        
+        { width : "100px" },
+        { width : "100px" }        
+    ] 
 } );
 </script>
                         ');
                     }
 ?>
-</div>
 <?php
 require_once Themes::getInstance()->current()['path'] . "/admin_footer.php";
 ?>
