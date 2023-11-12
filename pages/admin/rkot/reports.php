@@ -34,8 +34,6 @@ require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
 
-    <h3 class="font-bold text-lg">Hello!</h3>
-
     <form>
       <input id="file" type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs mt-5" /> <br>
       <a class="btn mt-5" onclick="uploadFile()">Отправить</a> 
@@ -121,9 +119,11 @@ function deleteEntry(id) {
                     processData: false,
                     success: function(response) {
                         alert("Файл успешно отправлен!");
+                        $('#reports').DataTable().ajax.reload();
                     },
                     error: function(error) {
                         alert("Ошибка: " + error.statusText);
+                        $('#reports').DataTable().ajax.reload();
                     }
                 });
             } else {

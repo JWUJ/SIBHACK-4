@@ -14,6 +14,20 @@ require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.tailwindcss.min.js"></script>
 
+<dialog id="suretest" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Вы уверены?</h3>
+    <p class="py-4">Это приведёт к удалению записи!</p>
+    <div class="modal-action">
+    <button id="confirmDelete" class="btn">Да</button>
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">Нет</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
 <div class="relative h-16" style="width:100%">
 
 
@@ -24,16 +38,13 @@ require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
-
-    <h3 class="font-bold text-lg">Приветствуем!</h3>
     <p class="py-4">Введите данные нового пользователя!</p>
 
     <form id="AddUser">
 
-       <input type="text" placeholder="Имя пользователя" class="input input-bordered w-full input-sm max-w-xs" id="user_username" name="user_username"/></p><br/>
-        <input type="text" placeholder="Имя человека" class="input input-bordered w-full input-sm max-w-xs" id="user_name" name="user_name"/></p><br/>
-       <input type="text" placeholder="Пароль" class="input input-bordered w-full input-sm max-w-xs" id="user_password" name="user_password"/></p><br/>
-       <input type="text" placeholder="Роль пользователя" class="input input-bordered w-full input-sm max-w-xs" id="user_role" name="user_role"/></p><br/>
+       <input type="text" placeholder="Имя пользователя" class="input input-bordered w-full" id="user_username" name="user_username"/></p><br/>
+        <input type="text" placeholder="ФИО" class="input input-bordered w-full input" id="user_name" name="user_name"/></p><br/>
+       <input type="text" placeholder="Пароль" class="input input-bordered w-full" id="user_password" name="user_password"/></p><br/>
        <a class="btn" onclick="submitForm()">Отправить</a>      
         
     </form>
@@ -48,11 +59,11 @@ require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
 <table id="users" class="table" style="width:100%">
     <thead>
         <tr>
-            <th>id</th>
-            <th>username</th>
-            <th>name</th>
-            <th>role</th>
-            <th>func</th>
+            <th>№</th>
+            <th>Логин</th>
+            <th>ФИО</th>
+            <th>Роль</th>
+            <th>Действия</th>
         </tr>
     </thead>
 </table>
@@ -74,12 +85,42 @@ function submitForm() {
                 AddUser[key] = value;
             });
 
-        fetch(`/api/users?function=add&username=${AddUser.user_username}&name=${AddUser.user_name}&password=${AddUser.user_password}&role=${AddUser.user_role}`)
+        fetch(`/api/users?function=add&username=${AddUser.user_username}&name=${AddUser.user_name}&password=${AddUser.user_password}`)
         .then(response => response.json())
         .then(data => {
+          $('#users').DataTable().ajax.reload();
+          suretest.hide();
         });
         }
+function showConfirmationModal(button) {
 
+const entryValue = button.getAttribute('entryid');
+
+suretest.showModal();
+
+const confirmDeleteButton = document.getElementById('confirmDelete');
+confirmDeleteButton.addEventListener('click', function () {
+  
+  deleteEntry(entryValue);
+  suretest.close();
+});
+}
+
+function deleteEntry(id) {
+  fetch('/api/users?function=delete&id=' + id)
+      .then(response => response.json())
+      .then(data => {
+          if (data.error) {
+              console.error(data.error);
+          } else {
+              $.ajax({
+                  url: '/api/users?function=get&count=table',
+              }).done(function() {
+                  $('#users').DataTable().ajax.reload();
+              });
+          }
+      });
+}
 </script>
 
 <?php

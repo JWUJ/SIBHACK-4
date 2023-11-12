@@ -12,13 +12,13 @@ $local['db'] = DataBase::getInstance();
     switch ($_GET['function'])
     {
         case 'add':
-            if (!isset($_GET['id']))
+            if (!isset($_GET['username'], $_GET['name'], $_GET['password']))
             {
                 exit('{"error": "ERROR: Not all parameters are passed"}');
             }
 
-            $query = "INSERT INTO groups (group_id) 
-            VALUES ('" . $_GET['id'] . "')";
+            $query = "INSERT INTO users (username, name, password, role) 
+            VALUES ('" . $_GET['username'] . "', '" . $_GET['name'] . "',  '" . password_hash($_GET['password'], PASSWORD_DEFAULT) . "', '2')";
 
             try
             {
@@ -36,26 +36,7 @@ $local['db'] = DataBase::getInstance();
                 exit('{"error": "ERROR: Not all parameters are passed"}');
             }
 
-            $query = "DELETE FROM groups WHERE group_id = '" . $_GET['id'] . "'";
-
-            try
-            {
-                exit(json_encode($local['db']->query($query)));
-            }
-            catch(Exception $e)
-            {
-                exit('{"error": "ERROR: ' . $e . '"}');
-            }
-        break;
-
-        case 'edit':
-            if (!isset($_GET['group_id'], $_GET['group_name']))
-            {
-                exit('{"error": "ERROR: Not all parameters are passed"}');
-            }
-
-            $query = "UPDATE groups 
-            SET group_name = '" . $_GET['group_name'] . "' WHERE id = '" . $_GET['group_id'] . "'";
+            $query = "DELETE FROM users WHERE user_id = '" . $_GET['id'] . "'";
 
             try
             {
@@ -89,7 +70,7 @@ $local['db'] = DataBase::getInstance();
                                 $row['username'],
                                 $row['name'],
                                 $row['role'],
-                                "<a href='edit.php?id=".$row['user_id']."'>Edit</a> | <a href='delete.php?id=".$row['user_id']."''>Delete</a>"
+                                '<button onClick="showConfirmationModal(this)" entryid="' . $row['user_id'] . '" class="btn btn-xs btn-error">Удалить</button>'
                             ];
                         }
                         
@@ -113,7 +94,7 @@ $local['db'] = DataBase::getInstance();
                         exit('{"error": "ERROR: Not all parameters are passed"}');
                     }
 
-                    $query = "SELECT * FROM teachers WHERE id = '" . $_GET['id'] . "'";
+                    $query = "SELECT * FROM users WHERE user_id = '" . $_GET['id'] . "'";
 
                     try
                     {

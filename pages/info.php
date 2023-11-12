@@ -10,7 +10,7 @@ if (!isset($_GET))
     exit('{"error": "ERROR: Function not passed"}');
 }
 
-require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
+require_once Themes::getInstance()->current()['path'] . "/header.php";
 ?>
 
 <link href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwindcss.min.css" rel="stylesheet" type="text/css" />
@@ -18,30 +18,33 @@ require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.tailwindcss.min.js"></script>
 
-<div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-<h1 class="text-xl text-black" data-line-start="0" data-line-end="1"><a id="__0"></a>СПО РКОТ</h1>
-<h3 class="text-xl text-black" data-line-start="1" data-line-end="2"><a id="_______________1"></a>Специальное программное обеспечение конвертации результатов измерений радиоконтрольного оборудования тестирования (мониторинга) параметров услуг подвижной радиотелефонной связи</h3>
-<p class="has-line-data text-black" data-line-start="4" data-line-end="6">СПО РКОТ предназначено для автоматизации процесса конвертации<br>
-итоговых результатов измерений РКОТ из XLS-файла в формат БД.</p>
-<h2 class="text-xl" data-line-start="7" data-line-end="8"><a id="_7"></a>Преимущества</h2>
-<ul>
-<li class="has-line-data text-black" data-line-start="9" data-line-end="10">Модульная структура</li>
-<li class="has-line-data text-black" data-line-start="10" data-line-end="12">Отдельный API</li>
-</ul>
-<h2 class="code-line text-black" data-line-start="12" data-line-end="13"><a id="__12"></a>Используемые ресурсы</h2>
-<p class="has-line-data text-black" data-line-start="14" data-line-end="15">Для работы проекта необходимы:</p>
-<ul>
-<li class="has-line-data text-black" data-line-start="16" data-line-end="17">PHP 8.2</li>
-<li class="has-line-data text-black" data-line-start="17" data-line-end="18">MariaDB 10.8</li>
-<li class="has-line-data text-black" data-line-start="18" data-line-end="19">DataTables</li>
-<li class="has-line-data text-black" data-line-start="19" data-line-end="20">daisyUI, Tailwind CSS Framework</li>
-<li class="has-line-data text-black" data-line-start="20" data-line-end="21">PhpSpreadsheet</li>
-</ul>
-<h2 class="text-xl text-black" data-line-start="23" data-line-end="24"><a id="_23"></a>Установка</h2>
-<p class="has-line-data text-black" data-line-start="24" data-line-end="27">Устанавливаем необходимое окружение ввиде PHP 8.1 NGINX или Apache, MariaDB.<br>
-В БД импортируем database.sql.<br>
-Настраеваем подключение к бд и название сайта в config.json.</p>
-</div>
+<div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">СПО РКОТ</h1>
+        <p class="text-lg mb-4">Специальное программное обеспечение конвертации результатов измерений радиоконтрольного оборудования тестирования (мониторинга) параметров услуг подвижной радиотелефонной связи</p>
+        <p class="mb-4">СПО РКОТ предназначено для автоматизации процесса конвертации итоговых результатов измерений РКОТ из XLS-файла в формат БД.</p>
+        <h2 class="text-xl font-bold mt-4 mb-2">Преимущества</h2>
+        <ul class="list-disc ml-6">
+            <li class="mb-2">Модульная структура</li>
+            <li class="mb-2">API</li>
+        </ul>
+        <h2 class="text-xl font-bold mt-4 mb-2">Используемые ресурсы</h2>
+        <ul class="list-disc ml-6">
+            <li class="mb-2">PHP 8.2</li>
+            <li class="mb-2">MariaDB 10.8</li>
+            <li class="mb-2">DataTables</li>
+            <li class="mb-2">daisyUI, Tailwind CSS Framework</li>
+            <li class="mb-2">PhpSpreadsheet</li>
+        </ul>
+        <h2 class="text-xl font-bold mt-4 mb-2">Установка</h2>
+        <ol class="list-decimal ml-6">
+            <li class="mb-2">Устанавливаем необходимое окружение в виде PHP 8.1 NGINX или Apache, MariaDB.</li>
+            <li class="mb-2">В БД импортируем database.sql.</li>
+            <li class="mb-2">Настроиваем подключение к БД и название сайта в config.json.</li>
+        </ol>
+        <h2 class="text-xl font-bold mt-4 mb-2">Вход</h2>
+        <p class="mb-4">Логин: admin</p>
+        <p class="mb-4">Пароль: adminpassword</p>
+    </div>
 <?php
-require_once Themes::getInstance()->current()['path'] . "/admin_footer.php";
+require_once Themes::getInstance()->current()['path'] . "/footer.php";
 ?>
