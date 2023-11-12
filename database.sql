@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
 
 -- Дамп данных таблицы RKOT.menus: ~2 rows (приблизительно)
 INSERT INTO `menus` (`id`, `name`, `items`) VALUES
-	(1, 'Admin', '{\r\n  "Пользователи": "/admin/users",\r\n  "Страницы": "/admin/pages",\r\n  "РКОТ": {\r\n    "Отчёты": "/admin/pages/rkot/reports",\r\n    "Города": "/admin/pages/rkot/cities",\r\n    "Операторы связи": "/admin/pages/rkot/mobile_operators"\r\n  },\r\n  "Выйти с аккаунта": "/logout"\r\n}'),
+	(1, 'Admin', '{\r\n  "Пользователи": "/admin/users",\r\n  "Страницы": "/admin/pages",\r\n  "РКОТ": {\r\n    "Отчёты": "/admin/pages/rkot/reports"\r\n  },\r\n  "Выйти с аккаунта": "/logout"\r\n}'),
 	(2, 'Main', '{\r\n "Об проекте": "/info"\r\n}');
 
 -- Дамп структуры для таблица RKOT.pages
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы RKOT.pages: ~21 rows (приблизительно)
+-- Дамп данных таблицы RKOT.pages: ~17 rows (приблизительно)
 INSERT INTO `pages` (`id`, `page`, `url`, `location`, `roles`, `type`) VALUES
 	(1, 'Администратор: Главная', '/admin', '/pages/admin/main.php', '[1,2]', 'admin'),
 	(2, 'Администратор: Управление пользователями', '/admin/users', '/pages/admin/users.php', '[1]', 'admin'),
@@ -64,67 +64,35 @@ INSERT INTO `pages` (`id`, `page`, `url`, `location`, `roles`, `type`) VALUES
 	(4, 'Администратор: Редактирирование страницы', '/admin/pages/editor', '/pages/admin/editor.php', '[1]', 'admin'),
 	(5, 'Api:Modules:Main:Roles', '/api/roles', '/api/main/roles.php', '', 'api'),
 	(6, 'Api:Modules:Main:Files:Get TODO', '/api/getfile', '/pages/admin/api/getfile.php', '[1,2]', 'api'),
-	(7, 'РКОТ: Города', '/admin/pages/rkot/cities', '/pages/admin/rkot/cities.php', '[1,2]', 'admin:rkot'),
 	(8, '404', '/404', '/pages/404.php', NULL, 'main'),
 	(9, 'Вход', '/auth', '/pages/auth/login.php', NULL, 'main'),
 	(10, 'Выйти из аккаунта', '/logout', '/pages/auth/logout.php', NULL, 'main'),
-	(11, 'РКОТ: Операторы', '/admin/pages/rkot/mobile_operators', '/pages/admin/rkot/mobile_operators.php', '[1,2]', 'admin:rkot'),
 	(12, 'РКОТ: Отчёты', '/admin/pages/rkot/reports', '/pages/admin/rkot/reports.php', '[1,2]', 'admin:rkot'),
-	(15, 'Api:Modules:RKOT:Cities', '/api/rkot/cities', '/api/modules/rkot/cities.php', '[1,2]', 'api:rkot'),
-	(16, 'Api:Modules:RKOT:Mobile_Operators', '/api/rkot/mobile_operators', '/api/modules/rkot/mobile_operators.php', '[1,2]', 'api:rkot'),
+	(13, 'РКОТ: Отчёт', '/admin/pages/rkot/report', '/pages/admin/rkot/report.php', '[1,2]', 'admin:rkot'),
 	(17, 'Api:Modules:RKOT:Reports', '/api/rkot/reports', '/api/modules/rkot/reports.php', '[1,2]', 'api:rkot'),
 	(18, 'Api:Modules:Main:Users', '/api/users', '/api/main/users.php', '', 'api'),
 	(19, 'Api:Modules:RKOT:Reports:Data', '/api/rkot/reports/data', '/api/modules/rkot/reports_data.php', '[1,2]', 'api:rkot'),
+	(23, 'Информация', '/info', '/pages/info.php', NULL, NULL),
 	(24, 'Api:Modules:Main:Pages', '/api/pages', '/api/main/pages.php', '', 'api'),
-	(25, 'Главная', '/', '/pages/main.php', NULL, 'main'),
-	(26, 'test', '/test', '/pages/test.php', NULL, NULL),
-	(27, 'test', '/testtable', '/pages/testtable.php', NULL, NULL);
-
--- Дамп структуры для таблица RKOT.rkot_cities
-CREATE TABLE IF NOT EXISTS `rkot_cities` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Города модуля RKOT';
-
--- Дамп данных таблицы RKOT.rkot_cities: ~2 rows (приблизительно)
-INSERT INTO `rkot_cities` (`id`, `name`) VALUES
-	(1, 'Хабаровск'),
-	(2, 'Новосибирск');
-
--- Дамп структуры для таблица RKOT.rkot_mobile_operators
-CREATE TABLE IF NOT EXISTS `rkot_mobile_operators` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Дамп данных таблицы RKOT.rkot_mobile_operators: ~4 rows (приблизительно)
-INSERT INTO `rkot_mobile_operators` (`id`, `name`) VALUES
-	(1, 'Теле2'),
-	(2, 'Билайн'),
-	(3, 'Мегафон'),
-	(4, 'МТС');
+	(25, 'Главная', '/', '/pages/main.php', NULL, 'main');
 
 -- Дамп структуры для таблица RKOT.rkot_reports
 CREATE TABLE IF NOT EXISTS `rkot_reports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` int(11) NOT NULL DEFAULT 0,
-  `date_start` int(11) NOT NULL DEFAULT 0,
-  `date_end` int(11) NOT NULL DEFAULT 0,
-  `city_id` int(11) NOT NULL DEFAULT 0,
+  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_start` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_end` tinytext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK__rkot_cities` (`city_id`),
   KEY `FK_rkot_reports_users` (`user_id`),
-  CONSTRAINT `FK__rkot_cities` FOREIGN KEY (`city_id`) REFERENCES `rkot_cities` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_rkot_reports_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы RKOT.rkot_reports: ~2 rows (приблизительно)
-INSERT INTO `rkot_reports` (`id`, `name`, `date_start`, `date_end`, `city_id`, `user_id`) VALUES
-	(1, 2, 1, 1, 1, 1),
-	(2, 2, 1, 1, 1, 2);
+-- Дамп данных таблицы RKOT.rkot_reports: ~1 rows (приблизительно)
+INSERT INTO `rkot_reports` (`id`, `name`, `date_start`, `date_end`, `city`, `district`, `user_id`) VALUES
+	(1, '№32 от 24 июля 2019', '03.06.2019', '23.07.2019', 'г. Екатеринбург', 'УРАЛЬСКОМ ФЕДЕРАЛЬНОМ ОКРУГЕ', NULL);
 
 -- Дамп структуры для таблица RKOT.rkot_reports_data
 CREATE TABLE IF NOT EXISTS `rkot_reports_data` (
@@ -136,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `rkot_reports_data` (
 
 -- Дамп данных таблицы RKOT.rkot_reports_data: ~1 rows (приблизительно)
 INSERT INTO `rkot_reports_data` (`id_report`, `data`) VALUES
-	(1, '[\r\n    [\r\n        {\r\n            "0": "Показатели качества услуг подвижной радиотелефонной связи в части голосового соединения",\r\n            "2": "Beeline",\r\n            "3": "MegaFon RUS",\r\n            "4": "MTS-RUS",\r\n            "5": "TELE2"\r\n        },\r\n        [\r\n            "Доля неуспешных попыток установления голосового соединения  (Voice Service Non-Acessibility ) [%] ",\r\n            "не более 5",\r\n            0.2941928882067025,\r\n            0.7864726700747149,\r\n            0.43369693783677227,\r\n            0.8062418725617685\r\n        ],\r\n        [\r\n            "Доля обрывов голосовых соединений ( Voice Service Cut-off Ratio) [%]",\r\n            "не более 5",\r\n            0.8376288659793815,\r\n            1.6090425531914894,\r\n            0.6365203553905318,\r\n            0.8722082727633144\r\n        ],\r\n        [\r\n            "Средняя разборчивость речи на соединение (Speech Quality on Call basis (MOS POLQA))",\r\n            "не менее 2,6",\r\n            4.1707148578331825,\r\n            3.886055875352966,\r\n            4.18023008238823,\r\n            4.212120767495408\r\n        ],\r\n        [\r\n            "Доля голосовых соединений с низкой разборчивостью речи (Negative MOS samples Ratio,MOS POLQA < 2,6) [%]",\r\n            " ",\r\n            0.2528581763111102,\r\n            2.5191463729455297,\r\n            0.36151490644160117,\r\n            0.6208030697546937\r\n        ]\r\n    ],\r\n    [\r\n        [\r\n            "Показатели качества услуг подвижной радиотелефонной связи в части передачи коротких текстовых сообщений"\r\n        ],\r\n        [\r\n            "Доля недоставленных SMS сообщений [%]",\r\n            " ",\r\n            2.4,\r\n            4.242424242424242,\r\n            3.4412955465587043,\r\n            6.326530612244898\r\n        ],\r\n        [\r\n            "Среднее время доставки SMS сообщений [сек]",\r\n            " ",\r\n            6.276091028432377,\r\n            7.642689378955696,\r\n            6.09436828485325,\r\n            5.741553479030501\r\n        ]\r\n    ],\r\n    [\r\n        [\r\n            "Показатели качества услуг связи по передаче данных, за исключением услуг связи по передаче данных для целей передачи голосовой информации"\r\n        ],\r\n        {\r\n            "0": "Доля неуспешных сессий по протоколу HTTP (HTTP Session Failure Ratio) [%]",\r\n            "2": 2.161200101703534,\r\n            "3": 1.4733395696913003,\r\n            "4": 2.2454142947501583,\r\n            "5": 3.3399942906080504\r\n        },\r\n        [\r\n            "Среднее значение скорости передачи данных от абонента (HTTP UL Mean User Data Rate) [kbit\\/sec]",\r\n            " ",\r\n            2488.1455125150483,\r\n            1870.449183782878,\r\n            2644.7536430988375,\r\n            2012.078376643705\r\n        ],\r\n        [\r\n            "Среднее значение скорости передачи данных к абоненту (HTTP DL Mean User Data Rate) [kbit\\/sec]",\r\n            "не менее 80",\r\n            9700.979612662122,\r\n            10409.297302806985,\r\n            7504.212544372116,\r\n            9107.286552223888\r\n        ],\r\n        [\r\n            "Продолжительность успешной сессии (HTTP Session Time) [s]",\r\n            " ",\r\n            10.925764036687983,\r\n            12.698537113634828,\r\n            11.65106516713181,\r\n            10.919908157237344\r\n        ]\r\n    ],\r\n    [\r\n        [\r\n            "Справочная информация"\r\n        ],\r\n        [\r\n            "Общее количество тестовых голосовых соединений ",\r\n            " ",\r\n            7818,\r\n            7629,\r\n            7609,\r\n            7690\r\n        ],\r\n        [\r\n            "Общее количество голосовых последовательностей в оцениваемых соединениях (POLQA) ",\r\n            " ",\r\n            147909,\r\n            139452,\r\n            144669,\r\n            145940\r\n        ],\r\n        [\r\n            "Количество голосовых соединений с низкой разборчивостью (Negative MOS samples Count, MOS POLQA<2,6)[%]",\r\n            " ",\r\n            374,\r\n            3513,\r\n            523,\r\n            906\r\n        ],\r\n        [\r\n            "Общее количество отправленных SMS - сообщений",\r\n            " ",\r\n            500,\r\n            495,\r\n            494,\r\n            490\r\n        ],\r\n        [\r\n            "Общее количество попыток соединений с сервером передачи данных HTTP (Загрузка файлов)",\r\n            " ",\r\n            1729,\r\n            1896,\r\n            1456,\r\n            1588\r\n        ],\r\n        [\r\n            "Общее количество тестовых сессий по протоколу HTTP (Web-browsing)",\r\n            " ",\r\n            2204,\r\n            2380,\r\n            1706,\r\n            1915\r\n        ]\r\n    ]\r\n]');
+	(1, '[\n    [\n        {\n            "0": "Показатели качества услуг подвижной радиотелефонной связи в части голосового соединения",\n            "2": "Beeline",\n            "3": "MegaFon RUS",\n            "4": "MTS-RUS",\n            "5": "TELE2"\n        },\n        [\n            "Доля неуспешных попыток установления голосового соединения  (Voice Service Non-Acessibility ) [%] ",\n            "не более 5",\n            0.2941928882067025,\n            0.7864726700747149,\n            0.43369693783677227,\n            0.8062418725617685\n        ],\n        [\n            "Доля обрывов голосовых соединений ( Voice Service Cut-off Ratio) [%]",\n            "не более 5",\n            0.8376288659793815,\n            1.6090425531914894,\n            0.6365203553905318,\n            0.8722082727633144\n        ],\n        [\n            "Средняя разборчивость речи на соединение (Speech Quality on Call basis (MOS POLQA))",\n            "не менее 2,6",\n            4.1707148578331825,\n            3.886055875352966,\n            4.18023008238823,\n            4.212120767495408\n        ],\n        [\n            "Доля голосовых соединений с низкой разборчивостью речи (Negative MOS samples Ratio,MOS POLQA < 2,6) [%]",\n            " ",\n            0.2528581763111102,\n            2.5191463729455297,\n            0.36151490644160117,\n            0.6208030697546937\n        ]\n    ],\n    [\n        [\n            "Показатели качества услуг подвижной радиотелефонной связи в части передачи коротких текстовых сообщений"\n        ],\n        [\n            "Доля недоставленных SMS сообщений [%]",\n            " ",\n            2.4,\n            4.242424242424242,\n            3.4412955465587043,\n            6.326530612244898\n        ],\n        [\n            "Среднее время доставки SMS сообщений [сек]",\n            " ",\n            6.276091028432377,\n            7.642689378955696,\n            6.09436828485325,\n            5.741553479030501\n        ]\n    ],\n    [\n        [\n            "Показатели качества услуг связи по передаче данных, за исключением услуг связи по передаче данных для целей передачи голосовой информации"\n        ],\n        {\n            "0": "Доля неуспешных сессий по протоколу HTTP (HTTP Session Failure Ratio) [%]",\n            "2": 2.161200101703534,\n            "3": 1.4733395696913003,\n            "4": 2.2454142947501583,\n            "5": 3.3399942906080504\n        },\n        [\n            "Среднее значение скорости передачи данных от абонента (HTTP UL Mean User Data Rate) [kbit/sec]",\n            " ",\n            2488.1455125150483,\n            1870.449183782878,\n            2644.7536430988375,\n            2012.078376643705\n        ],\n        [\n            "Среднее значение скорости передачи данных к абоненту (HTTP DL Mean User Data Rate) [kbit/sec]",\n            "не менее 80",\n            9700.979612662122,\n            10409.297302806985,\n            7504.212544372116,\n            9107.286552223888\n        ],\n        [\n            "Продолжительность успешной сессии (HTTP Session Time) [s]",\n            " ",\n            10.925764036687983,\n            12.698537113634828,\n            11.65106516713181,\n            10.919908157237344\n        ]\n    ],\n    [\n        [\n            "Справочная информация"\n        ],\n        [\n            "Общее количество тестовых голосовых соединений ",\n            " ",\n            7818,\n            7629,\n            7609,\n            7690\n        ],\n        [\n            "Общее количество голосовых последовательностей в оцениваемых соединениях (POLQA) ",\n            " ",\n            147909,\n            139452,\n            144669,\n            145940\n        ],\n        [\n            "Количество голосовых соединений с низкой разборчивостью (Negative MOS samples Count, MOS POLQA<2,6)[%]",\n            " ",\n            374,\n            3513,\n            523,\n            906\n        ],\n        [\n            "Общее количество отправленных SMS - сообщений",\n            " ",\n            500,\n            495,\n            494,\n            490\n        ],\n        [\n            "Общее количество попыток соединений с сервером передачи данных HTTP (Загрузка файлов)",\n            " ",\n            1729,\n            1896,\n            1456,\n            1588\n        ],\n        [\n            "Общее количество тестовых сессий по протоколу HTTP (Web-browsing)",\n            " ",\n            2204,\n            2380,\n            1706,\n            1915\n        ]\n    ]\n]');
 
 -- Дамп структуры для таблица RKOT.roles
 CREATE TABLE IF NOT EXISTS `roles` (
@@ -158,15 +126,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` int(11) DEFAULT NULL,
-  `image` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы RKOT.users: ~2 rows (приблизительно)
-INSERT INTO `users` (`user_id`, `username`, `name`, `password`, `role`, `image`) VALUES
-	(1, 'admin', 'Стововой Алексей Михайлович', '$2y$10$GMwC0fhGntzkC1yWOcdpy.CUdA8.hKQMDcitGNm0jZBRS2yvit28m', 1, NULL),
-	(2, 'user', 'Бянкин Александр', '$2y$10$GMwC0fhGntzkC1yWOcdpy.CUdA8.hKQMDcitGNm0jZBRS2yvit28m', 2, NULL);
+-- Дамп данных таблицы RKOT.users: ~1 rows (приблизительно)
+INSERT INTO `users` (`user_id`, `username`, `name`, `password`, `role`) VALUES
+	(1, 'admin', 'Администратор', '$2y$10$GMwC0fhGntzkC1yWOcdpy.CUdA8.hKQMDcitGNm0jZBRS2yvit28m', 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
