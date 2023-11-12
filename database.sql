@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`items`)),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Дамп данных таблицы RKOT.menus: ~2 rows (приблизительно)
 INSERT INTO `menus` (`id`, `name`, `items`) VALUES
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `roles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `type` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Дамп данных таблицы RKOT.pages: ~17 rows (приблизительно)
 INSERT INTO `pages` (`id`, `page`, `url`, `location`, `roles`, `type`) VALUES
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `rkot_reports` (
   PRIMARY KEY (`id`),
   KEY `FK_rkot_reports_users` (`user_id`),
   CONSTRAINT `FK_rkot_reports_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Дамп данных таблицы RKOT.rkot_reports: ~1 rows (приблизительно)
 INSERT INTO `rkot_reports` (`id`, `name`, `date_start`, `date_end`, `city`, `district`, `user_id`) VALUES
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `role` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `rules` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`rules`)),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Дамп данных таблицы RKOT.roles: ~2 rows (приблизительно)
 INSERT INTO `roles` (`id`, `role`, `rules`) VALUES
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Дамп данных таблицы RKOT.users: ~1 rows (приблизительно)
 INSERT INTO `users` (`user_id`, `username`, `name`, `password`, `role`) VALUES
