@@ -15,64 +15,84 @@ $spreadsheet = $reader->load($inputFileName);
 $worksheet = $spreadsheet->getActiveSheet();
 
 $data = [];
-$currentRow = null;
 
 foreach ($worksheet->getRowIterator() as $row) {
     $cellIterator = $row->getCellIterator();
-    $rowIndex = $row->getRowIndex();
-    
     $rowData = [];
 
     foreach ($cellIterator as $cell) {
         $cellValue = $cell->getValue();
-        $cellColor = $cell->getStyle()->getFill()->getStartColor()->getRGB();
 
-        if ($rowIndex >= 17 && $cellColor == 'B0C4DE') {
-            // Если цвет ячейки - красный и строка больше 17, начинаем новый подмассив
-            if ($currentRow !== null) {
-                $data[] = $currentRow;
+        // Проверка типа значения ячейки
+        if ($cellValue instanceof \PhpOffice\PhpSpreadsheet\RichText\RichText) {
+            $richTextElements = $cellValue->getRichTextElements();
+            $text = '';
+
+            // Извлечение текста из RichText элементов
+            foreach ($richTextElements as $element) {
+                if ($element instanceof \PhpOffice\PhpSpreadsheet\RichText\TextElement) {
+                    $text .= $element->getText();
+                }
             }
-            $currentRow = [];
+
+            $rowData[] = $text;
+        } else {
+            $rowData[] = $cellValue;
         }
-
-        $rowData[] = $cellValue;
     }
 
-    if ($currentRow !== null) {
-        $currentRow[] = $rowData;
+    $data[] = $rowData;
+
+    // Прекращаем обработку после 16 строк
+    if (count($data) >= 16) {
+        break;
     }
 }
 
-if ($currentRow !== null) {
-    $data[] = $currentRow;
+// Удаление пустых массивов
+            function array_filter_recursive($input) 
+            { 
+              foreach ($input as &$value) 
+              { 
+                if (is_array($value)) 
+                { 
+                  $value = array_filter_recursive($value); 
+                } 
+              } 
+            
+              return array_filter($input); 
+            } 
+            
+            $data = array_filter_recursive($data);
+
+// Обработка данных
+if (preg_match('/Место проведения контроля: (.+)/u', $data[13][0], $matches)) {
+    $ddata['city'] = $matches[1];
+}
+if (preg_match('/В\s(.*?)$/u', $data[7][0], $matches)) {
+    $ddata['depot'] = $matches[1];
+}
+if (preg_match_all('/(\d{2}\.\d{2}\.\d{4})/', $data[12][0], $matches)) {
+    $dates = $matches[0];
+    if (count($dates) >= 2) {
+        $ddata['date_start'] = $dates[0];
+        $ddata['date_end'] = $dates[1];
+    }
+}
+if (preg_match('/№ (\d+) от «(\d+)» ([а-яА-Я\s]+) (\d+) г\./u', $data[9][0], $matches)) {
+    $protocolNumber = $matches[1]; // Номер протокола
+    $day = $matches[2]; // День
+    $month = $matches[3]; // Месяц
+    $year = $matches[4]; // Год
+
+    $ddata['name'] = '№' . $protocolNumber . ' от ' . $day . ' ' . $month . ' ' . $year;
+} else {
+    echo 'Совпадений не найдено.';
 }
 
-function array_filter_recursive($input) 
-{ 
-  foreach ($input as &$value) 
-  { 
-    if (is_array($value)) 
-    { 
-      $value = array_filter_recursive($value); 
-    } 
-  } 
 
-  return array_filter($input); 
-} 
-
-$data = array_filter_recursive($data);
-
-$data = array_values(array_filter($data, function($subarray) {
-    return !empty($subarray);
-}));
-
-
-//$data = array_filter_recursive($data);
-$jsonData = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-file_put_contents('output.json', $jsonData);
-
-echo 'Данные успешно преобразованы в JSON и сохранены в output.json.';
-
-echo '<pre>', print_r($data, true), '</pre>';
+// Вывод данных для отладки
+echo '<pre>';
+print_r($ddata);
+echo '</pre>';
 ?>

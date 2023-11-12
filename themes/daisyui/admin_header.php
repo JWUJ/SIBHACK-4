@@ -47,6 +47,7 @@ $local['session'] = Session::getInstance();
 
 ?>
         </ul>
+		<p class="inset-x-2 bottom-2">ФГУП «ГРЧЦ» © 2023</p>
     </div>
 
     <div class="w-9/12 bg-base-100">

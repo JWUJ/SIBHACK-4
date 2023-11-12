@@ -55,6 +55,7 @@ require_once Themes::getInstance()->current()['path'] . "/admin_header.php";
             <th>Название</th>
             <th>Даты проведения</th>
 			<th>Город</th>
+      <th>Округ</th>
 			<th>Действия</th>
         </tr>
     </thead>
@@ -68,26 +69,20 @@ $('#reports').DataTable( {
 
 
 function showConfirmationModal(button) {
-  // Получите значение атрибута entryid с помощью метода getAttribute
+
   const entryValue = button.getAttribute('entryid');
 
-  // Вызов модального окна или других действий, если необходимо
   suretest.showModal();
 
   const confirmDeleteButton = document.getElementById('confirmDelete');
   confirmDeleteButton.addEventListener('click', function () {
     
-    // Вызовите функцию удаления элемента
     deleteEntry(entryValue);
-    
-    // Закройте модальное окно
     suretest.close();
   });
 }
 
-// Функция для удаления записи из расписания
 function deleteEntry(id) {
-    // Отправляем запрос на сервер для удаления записи по идентификатору
     fetch('/api/rkot/reports?function=delete&id=' + id)
         .then(response => response.json())
         .then(data => {
@@ -114,22 +109,21 @@ function deleteEntry(id) {
  function uploadFile() {
             var fileInput = document.getElementById("file");
 
-            // Проверка наличия выбранного файла
             if (fileInput.files.length > 0) {
                 var formData = new FormData();
                 formData.append("file", fileInput.files[0]);
 
                 $.ajax({
                     type: "POST",
-                    url: "upload.php", // Замените на путь к вашему обработчику на сервере
+                    url: "/api/rkot/reports/data?function=add",
                     data: formData,
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        alert("File uploaded successfully!");
+                        alert("Файл успешно отправлен!");
                     },
                     error: function(error) {
-                        alert("Error uploading file: " + error.statusText);
+                        alert("Ошибка: " + error.statusText);
                     }
                 });
             } else {

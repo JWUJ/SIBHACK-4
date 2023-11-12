@@ -77,7 +77,7 @@ $local['db'] = DataBase::getInstance();
                         $query = $local['db']->query("SELECT count(id) FROM rkot_reports");
                         $totalRecords = $query[0];
 
-                        $sql = "SELECT id, name, date_start, date_end, city_id FROM rkot_reports";
+                        $sql = "SELECT id, name, date_start, date_end, city, district FROM rkot_reports";
                          
                         $query = $local['db']->query($sql);
 
@@ -88,7 +88,8 @@ $local['db'] = DataBase::getInstance();
                                 $row['id'],
                                 $row['name'],
 								'С ' . $row['date_start'] . ' по ' . $row['date_end'],
-								$row['city_id'],
+								$row['city'],
+                                $row['district'],
                                 '<a href="/admin/pages/rkot/report?id=' . $row['id'] . '" class="btn btn-xs">Открыть</a> <button class="btn btn-xs btn-success btn-disabled">Изменить</button> <button onClick="showConfirmationModal(this)" entryid="' . $row['id'] . '" class="btn btn-xs btn-error">Удалить</button>'
                             ];
                         }
